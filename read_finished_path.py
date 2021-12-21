@@ -49,17 +49,19 @@ g = addCategory(g,categoriesLines)
 # ------------------------------------------------------------
 def game_statistics(game, betw, in_deg, out_deg, pge_rnk, clos, index):
 
-    betw_game = [betw[x] for x in game]
-    in_deg_game = [in_deg[x] for x in game]
+    # betw_game = [betw[x] for x in game]
+    # in_deg_game = [in_deg[x] for x in game]
     out_deg_game = [out_deg[x] for x in game]
-    pge_rnk_game = [pge_rnk[x] for x in game]
-    clos_game = [clos[x] for x in game]
+    # pge_rnk_game = [pge_rnk[x] for x in game]
+    # clos_game = [clos[x] for x in game]
 
-    plt.plot(game, betw_game, label='Betweeness')
-    plt.plot(game, in_deg_game, label='In degree')
-    plt.plot(game, out_deg_game, label='Out degree')
-    plt.plot(game, pge_rnk_game, label='Page rank')
-    plt.plot(game, clos_game, label='Closeness')
+    game_clicks = list(range(0, len(game)))
+
+    # plt.plot(game, betw_game, label='Betweeness')
+    # plt.plot(game, in_deg_game, label='In degree')
+    plt.plot(game_clicks, out_deg_game, label='Out degree')
+    # plt.plot(game, pge_rnk_game, label='Page rank')
+    # plt.plot(game, clos_game, label='Closeness')
 
     plt.title('GAME STATISTICS : ')
     plt.xlabel('Game steps')
