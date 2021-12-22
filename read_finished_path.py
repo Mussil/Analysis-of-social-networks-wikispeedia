@@ -6,19 +6,15 @@ import networkx as nx
 from createGraph import createGraph
 
 
-
 g=createGraph()
+lenNodes=len(g.nodes())
+lenEdges=len(g.edges())
 print(g)
 
+
 # ------------------------------------------------------------
-def game_statistics(game, betw, in_deg, out_deg, pge_rnk, clos, index):
-
-    # betw_game = [betw[x] for x in game]
-    # in_deg_game = [in_deg[x] for x in game]
-    out_deg_game = [out_deg[x] for x in game]
-    # pge_rnk_game = [pge_rnk[x] for x in game]
-    # clos_game = [clos[x] for x in game]
-
+def game_statistics(game, index ):
+    betw_game, in_deg_game, out_deg_game, pge_rnk_game, clos_game=listOfCentralityForGame(game)
     game_clicks = list(range(0, len(game)))
 
     # plt.plot(game, betw_game, label='Betweeness')
@@ -33,18 +29,32 @@ def game_statistics(game, betw, in_deg, out_deg, pge_rnk, clos, index):
     plt.legend()
     # plt.show()
 
-    file_name = str(index)+'.png'
+    path='results/'
+    file_name = path+str(index)+'.png'
     plt.savefig(file_name)
     plt.cla()
 
-def read_finished_path(g, Lines):
-
-    betweenness = nx.betweenness_centrality(g, k=100, normalized=True, weight=None, endpoints=False, seed=None)
+def getCentralityIndices():
+    betweenness = nx.betweenness_centrality(g, k=len(g.nodes()))
     # deg_centrality = nx.degree_centrality(g)
     in_degree = nx.in_degree_centrality(g)
     out_deg = nx.out_degree_centrality(g)
-    page_rank = nx.pagerank(g, alpha=0.8)
+    page_rank = nx.pagerank(g)
     closeness= nx.closeness_centrality(g)
+
+    def listOfCentralityForGame(game):
+        betw_game = [betweenness[x] for x in game]
+        in_deg_game = [in_degree[x] for x in game]
+        out_deg_game = [out_deg[x] for x in game]
+        pge_rnk_game = [page_rank[x] for x in game]
+        clos_game = [closeness[x] for x in game]
+        return betw_game,in_deg_game,out_deg_game,pge_rnk_game,clos_game
+
+    return listOfCentralityForGame
+
+
+def read_finished_path(g, Lines):
+
 
     index = 0
 
@@ -58,7 +68,7 @@ def read_finished_path(g, Lines):
 
         if len(game) >= 8 and '<' not in game:
             index += 1
-            game_statistics(game, betweenness, in_degree, out_deg, page_rank, closeness, index)
+            game_statistics(game,index )
 
         # TODO: fix path with '<' and with '<<'
         # path = new_line.copy()
@@ -71,6 +81,9 @@ def read_finished_path(g, Lines):
         #             del_index2 -= 1
         #         del path[del_index2:del_index1+1]
         #         print('----------------', path)
+
+
+listOfCentralityForGame = getCentralityIndices()
 
 
 finishedPathFile = open('data/paths_finished.tsv', 'r')
