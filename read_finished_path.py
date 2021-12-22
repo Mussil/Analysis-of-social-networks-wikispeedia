@@ -6,15 +6,12 @@ import networkx as nx
 from createGraph import createGraph
 
 
-g=createGraph()
-lenNodes=len(g.nodes())
-lenEdges=len(g.edges())
-print(g)
+
 
 
 # ------------------------------------------------------------
 def game_statistics(game, index ):
-    betw_game, in_deg_game, out_deg_game, pge_rnk_game, clos_game=listOfCentralityForGame(game)
+    betw_game, in_deg_game, out_deg_game, pge_rnk_game, clos_game=funcListOfCentralityForGame(game)
     game_clicks = list(range(0, len(game)))
 
     # plt.plot(game, betw_game, label='Betweeness')
@@ -35,14 +32,15 @@ def game_statistics(game, index ):
     plt.cla()
 
 def getCentralityIndices():
-    betweenness = nx.betweenness_centrality(g, k=len(g.nodes()))
+    k=len(g.nodes()) #paramter to put inside the betweens but it takes time so meanwhile without it
+    betweenness = nx.betweenness_centrality(g, k=100)
     # deg_centrality = nx.degree_centrality(g)
     in_degree = nx.in_degree_centrality(g)
     out_deg = nx.out_degree_centrality(g)
     page_rank = nx.pagerank(g)
     closeness= nx.closeness_centrality(g)
 
-    def listOfCentralityForGame(game):
+    def funcListOfCentralityForGame(game):
         betw_game = [betweenness[x] for x in game]
         in_deg_game = [in_degree[x] for x in game]
         out_deg_game = [out_deg[x] for x in game]
@@ -50,25 +48,31 @@ def getCentralityIndices():
         clos_game = [closeness[x] for x in game]
         return betw_game,in_deg_game,out_deg_game,pge_rnk_game,clos_game
 
-    return listOfCentralityForGame
+    return funcListOfCentralityForGame
 
 
-def read_finished_path(g, Lines):
+def read_finished_path(g):
+    finishedPathFile = open('data/paths_finished.tsv', 'r')
+    finishedPathLines = finishedPathFile.readlines()
+    finishedPathFile.close()
 
+    allGames=[]
 
-    index = 0
-
-    for line in Lines[16:]:
+    for line in finishedPathLines[16:]:
         new_line = line.replace('\n', ' ')
         new_line = new_line.replace('\t', ' ')
         new_line = new_line.split(' ')
         new_line = new_line[3]
         new_line = unquote(new_line)
         game = new_line.split(';')
+        allGames.append(game)
 
+    return allGames
+
+def loopGames(allGames):
+    for index, game in enumerate(allGames):
         if len(game) >= 8 and '<' not in game:
-            index += 1
-            game_statistics(game,index )
+            game_statistics(game,index)
 
         # TODO: fix path with '<' and with '<<'
         # path = new_line.copy()
@@ -83,12 +87,16 @@ def read_finished_path(g, Lines):
         #         print('----------------', path)
 
 
-listOfCentralityForGame = getCentralityIndices()
 
 
-finishedPathFile = open('data/paths_finished.tsv', 'r')
-finishedPathLines = finishedPathFile.readlines()
-finishedPathFile.close()
+g = createGraph()
 
-read_finished_path(g, finishedPathLines)
+if __name__=='__main__':
+    lenNodes = len(g.nodes())
+    lenEdges = len(g.edges())
+    print(g)
+
+    allGames= read_finished_path(g)
+    funcListOfCentralityForGame = getCentralityIndices()
+    loopGames(allGames)
 
