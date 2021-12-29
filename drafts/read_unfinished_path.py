@@ -26,7 +26,7 @@ def game_statistics(game, index ):
     plt.legend()
     # plt.show()
 
-    path='results/'
+    path= '../results/'
     file_name = path+str(index)+'.png'
     plt.savefig(file_name)
     plt.cla()
@@ -52,7 +52,7 @@ def getCentralityIndices():
 
 
 def read_unfinished_path(g):
-    finishedPathFile = open('data/paths_unfinished.tsv', 'r')
+    finishedPathFile = open('../data/paths_unfinished.tsv', 'r')
     finishedPathLines = finishedPathFile.readlines()
     finishedPathFile.close()
 

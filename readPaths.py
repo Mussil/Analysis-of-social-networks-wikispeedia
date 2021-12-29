@@ -17,3 +17,24 @@ def read_finished_path():
         allGames.append(game)
 
     return allGames
+
+
+
+
+def read_unfinished_path():
+    finishedPathFile = open('data/paths_unfinished.tsv', 'r')
+    finishedPathLines = finishedPathFile.readlines()
+    finishedPathFile.close()
+
+    allGames=[]
+
+    for line in finishedPathLines[17:]:
+        new_line = line.replace('\n', ' ')
+        new_line = new_line.replace('\t', ' ')
+        new_line = new_line.split(' ')
+        new_line = new_line[3]
+        new_line = unquote(new_line)
+        game = new_line.split(';')
+        allGames.append(game)
+
+    return allGames
