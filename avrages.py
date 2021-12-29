@@ -10,7 +10,7 @@ def avarageOf8OfOutDegree():
     """The function checks the average of centrality indices in tracks of the same length"""
     g = createGraph()
     allGames=read_finished_path(g)
-    size=8
+    size=10
 
     sumGames=[0 for i in range(size)]
     counter=0

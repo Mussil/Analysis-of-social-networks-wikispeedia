@@ -47,3 +47,21 @@ def createGraph():
 
     return g
 
+def getCentralityIndices(g):
+    k=len(g.nodes()) #paramter to put inside the betweens but it takes time so meanwhile without it
+    betweenness = nx.betweenness_centrality(g, k=100)
+    # deg_centrality = nx.degree_centrality(g)
+    in_degree = nx.in_degree_centrality(g)
+    out_deg = nx.out_degree_centrality(g)
+    page_rank = nx.pagerank(g)
+    closeness= nx.closeness_centrality(g)
+
+    def funcListOfCentralityForGame(game):
+        betw_game = [betweenness[x] for x in game]
+        in_deg_game = [in_degree[x] for x in game]
+        out_deg_game = [out_deg[x] for x in game]
+        pge_rnk_game = [page_rank[x] for x in game]
+        clos_game = [closeness[x] for x in game]
+        return betw_game,in_deg_game,out_deg_game,pge_rnk_game,clos_game
+
+    return funcListOfCentralityForGame

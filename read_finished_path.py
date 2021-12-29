@@ -74,17 +74,7 @@ def loopGames(allGames):
         if len(game) >= 8 and '<' not in game:
             game_statistics(game,index)
 
-        # TODO: fix path with '<' and with '<<'
-        # path = new_line.copy()
-        # for article in new_line:
-        #     if article == '<':
-        #         del_index1 = new_line.index(article)
-        #         del_index2 = del_index1-1
-        #         # path.remove(article)
-        #         while (del_index2 == '<') :
-        #             del_index2 -= 1
-        #         del path[del_index2:del_index1+1]
-        #         print('----------------', path)
+
 
 
 
