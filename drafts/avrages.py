@@ -1,7 +1,7 @@
 #our files
 from matplotlib import pyplot as plt
 
-from createGraph import createGraph
+from ..createGraph import createGraph
 from read_finished_path import read_finished_path, getCentralityIndices
 
 

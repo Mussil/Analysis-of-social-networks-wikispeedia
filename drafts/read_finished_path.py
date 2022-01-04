@@ -3,7 +3,7 @@ from urllib.parse import unquote
 import networkx as nx
 
 #our files
-from createGraph import createGraph
+from ..createGraph import createGraph
 
 
 
