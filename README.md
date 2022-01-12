@@ -8,3 +8,5 @@ The file `readPath.py` is used to read all the finished paths from the file `dat
 Also is used to read all the unfinished paths from the file `data/paths_unfinished.tsv` it uses the function `read_unfinished_path` for this job that return a list of all the finished games
 
 The file  `statisticsOfPaths.py` is used to calc all the indices and make the relvant plots, the result will be saved in the directory `resultsOfAvgClicks`
+
+The file  `graphDetails.py` is used to calculate from the graph the degree distribution for both the original graph & the largest connected component. In addition, in this file we calculated the number of clicks for all egdes from the finished paths.
