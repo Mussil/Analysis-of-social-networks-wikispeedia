@@ -1,7 +1,6 @@
 from urllib.parse import unquote
 import networkx as nx
 
-
 def createGraph():
     def createNodes(g,Lines):
         for line in Lines[12:]:
